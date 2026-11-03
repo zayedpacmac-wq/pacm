@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cartonator home</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#1F5FA8}a:hover{color:#174A84}
+</style>
+</helmet>
+<div style="width: 1024px; height: 600px; box-sizing: border-box; position: relative; display: flex; flex-direction: column; background: #E4E6E8; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #1E2328">
+
+<header style="height: 72px; box-sizing: border-box; padding: 0 0 0 12px; display: flex; align-items: center; gap: 14px; background: #2B3138; color: #F4F5F6">
+<button type="button" onClick="{{cycleState}}" aria-label="Machine state: {{st.label}}. Tap to change" style="width: 150px; height: 48px; padding: 0 14px; display: flex; align-items: center; gap: 10px; border: 0; border-radius: 6px; background: {{st.bg}}; color: {{st.fg}}; font-family: inherit; text-align: left; cursor: pointer"><span style="width: 12px; height: 12px; flex-shrink: 0; border-radius: 50%; box-sizing: border-box; background: {{st.dot}}; border: 2px solid {{st.ring}}"></span><span style="font-size: 15px; font-weight: 600">{{st.label}}</span></button>
+<div aria-label="Machine angle 214.6 degrees" style="flex-shrink: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 11px; color: #C5CACF">Angle</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 600">214.6°</span></div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-left: 14px; border-left: 1px solid #4A525A"><span style="font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">[RECIPE NAME]</span><span style="font-size: 12px; color: #C5CACF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{modeLine}}</span></div>
+<sc-if value="{{loggedIn}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{openLogin}}" aria-label="Switch user" style="height: 56px; flex-shrink: 0; box-sizing: border-box; padding: 0 12px; display: flex; align-items: center; gap: 8px; border: 0; border-radius: 6px; background: #3A424B; color: #F4F5F6; font-family: inherit; text-align: left; cursor: pointer"><svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg><span style="display: flex; flex-direction: column; gap: 1px"><span style="font-size: 14px; font-weight: 600">[USER]</span><span style="font-size: 11px; color: #C5CACF">Administrator</span></span></button>
+<button type="button" onClick="{{logout}}" style="width: 64px; height: 56px; flex-shrink: 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 6px; font-family: inherit; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid #5F6872; background: transparent; color: #F4F5F6"><svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4"></path><path d="M10 17l5-5-5-5"></path><path d="M15 12H4"></path></svg><span>Log out</span></button>
+</sc-if>
+<sc-if value="{{loggedOut}}" hint-placeholder-val="{{ false }}">
+<span style="flex-shrink: 0; font-size: 13px; color: #C5CACF">No user</span>
+<button type="button" onClick="{{openLogin}}" style="width: 64px; height: 56px; flex-shrink: 0; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border-radius: 6px; font-family: inherit; font-size: 11px; font-weight: 600; cursor: pointer; border: 0; background: #1F5FA8; color: #FFFFFF"><svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4"></path><path d="M14 17l5-5-5-5"></path><path d="M19 12H9"></path></svg><span>Log in</span></button>
+</sc-if>
+<div style="flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 1px; padding-left: 14px; border-left: 1px solid #4A525A"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 17px; font-weight: 600">12:12:26</span><span style="font-size: 11px; color: #C5CACF">14/10/2026</span></div>
+<div style="width: 80px; height: 72px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #F4F5F6; color: #4A525A; font-size: 12px; font-weight: 600">[LOGO]</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<main style="flex: 1; min-width: 0; box-sizing: border-box; padding: 12px; display: flex; flex-direction: column; gap: 12px">
+
+<div style="flex: 1; min-height: 0; display: flex; gap: 12px">
+<div style="width: 290px; flex-shrink: 0; display: flex; flex-direction: column; gap: 12px">
+<button type="button" onClick="{{openSpeed}}" aria-label="Machine speed {{speedText}} cartons per minute, recipe {{recipeSpeed}}. Tap to change, login required" style="flex: 1; min-height: 0; box-sizing: border-box; padding: 14px 16px; border: 1px solid #C5CACF; border-radius: 6px; background: #FFFFFF; color: #1E2328; font-family: inherit; text-align: left; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer">
+<span style="display: flex; justify-content: space-between; align-items: center; width: 100%"><span style="font-size: 14px; font-weight: 600; color: #3A4148">Machine speed</span><span style="display: flex; gap: 6px; color: #4A525A"><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path><path d="M13.5 6.5l4 4"></path></svg><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></span></span>
+<span style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 48px; font-weight: 600; line-height: 1.05">{{speedText}}</span><span style="font-size: 16px; color: #4A525A">cartons/min</span></span>
+<span style="display: flex; flex-direction: column; gap: 6px; width: 100%"><span style="display: block; width: 100%; height: 10px; background: #D3D7DB; border-radius: 5px; overflow: hidden"><span style="display: block; width: {{speedW}}; height: 10px; background: #5F6872"></span></span><span style="font-size: 13px; color: #3A4148">Recipe <span style="font-family: 'IBM Plex Mono', monospace; font-weight: 600">{{recipeSpeed}}</span>{{speedDiff}}</span></span>
+</button>
+<section aria-label="Release for clearing" style="flex-shrink: 0; box-sizing: border-box; padding: 10px 12px; background: #F4F5F6; border: 1px solid #C5CACF; border-radius: 6px; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><span style="font-size: 13px; font-weight: 600; color: #3A4148">Release for clearing</span><span style="font-size: 11px; color: {{relNoteFg}}; white-space: nowrap">{{relNote}}</span></span>
+<div style="flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{relBtns}}" as="r" hint-placeholder-count="2">
+<button type="button" onClick="{{r.press}}" aria-pressed="{{r.pressed}}" disabled="{{r.disabled}}" style="min-height: 48px; box-sizing: border-box; padding: 4px 8px; border: {{r.bd}}; border-radius: 6px; background: {{r.bg}}; color: {{r.fg}}; font-family: inherit; font-size: 13px; font-weight: 600; line-height: 1.2; cursor: {{r.cur}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px"><span>{{r.label}}</span><span style="font-size: 11px; font-weight: 500">{{r.sub}}</span></button>
+</sc-for>
+</div>
+</section>
+</div>
+
+<section aria-label="Batch" style="flex: 1; min-width: 0; box-sizing: border-box; padding: 14px 16px; background: #F4F5F6; border: 1px solid #C5CACF; border-radius: 6px; display: flex; flex-direction: column; justify-content: space-between; gap: 8px">
+<sc-if value="{{batchOn}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px"><span style="font-size: 12px; color: #4A525A">Batch</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">[BATCH NO.]</span></span>
+<button type="button" onClick="{{openEnd}}" style="height: 48px; padding: 0 14px; flex-shrink: 0; border: 2px solid #B3261E; border-radius: 6px; background: #FFFFFF; color: #B3261E; font-family: inherit; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer"><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>End batch</span></button>
+</div>
+<div style="display: flex; align-items: baseline; gap: 6px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 34px; font-weight: 600; line-height: 1.1">{{countText}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #4A525A">/</span><button type="button" onClick="{{openTarget}}" aria-label="Target {{targetText}}. Tap to edit, login required" style="height: 36px; padding: 0 8px; display: flex; align-items: center; gap: 6px; border: 1px solid #A7AEB5; border-radius: 6px; background: #FFFFFF; color: #1E2328; font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; cursor: pointer">{{targetText}}<span style="display: flex; color: #4A525A"><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"></path><path d="M13.5 6.5l4 4"></path></svg></span></button><span style="margin-left: auto; font-size: 13px; color: #4A525A">Est. finish 16:10</span></div>
+<div aria-hidden="true" style="height: 10px; background: #D3D7DB; border-radius: 5px; overflow: hidden"><div style="width: {{batchPct}}; height: 10px; background: #5F6872"></div></div>
+<div style="display: flex; justify-content: space-between; font-size: 12px; color: #4A525A"><span>{{batchPctText}} · [RECIPE NAME]</span><a href="Statistics.dc.html" style="color: #1F5FA8; font-weight: 600; text-decoration: none">OEE 87.5 %</a></div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A525A">Good</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600">{{goodText}}</span></div>
+<div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A525A">Reject · {{rejPct}}</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600">{{rejTotalText}}</span></div>
+<div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A525A">Avg speed</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600">43 /min</span></div>
+<div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A525A">Run time</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600">4 h 51 m</span></div>
+</div>
+</sc-if>
+<sc-if value="{{noBatch}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 12px; color: #4A525A">Batch</span>
+<span style="font-size: 22px; font-weight: 600">No batch running</span>
+<span style="font-size: 14px; color: #3A4148; line-height: 1.5">Loaded recipe: [RECIPE NAME]. {{noBatchText}}</span>
+<sc-if value="{{canStartMode}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{openStart}}" style="margin-top: auto; height: 64px; border: 0; border-radius: 6px; background: #1F5FA8; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>Start batch</span></button></sc-if>
+<sc-if value="{{inServiceMode}}" hint-placeholder-val="{{ false }}"><span style="margin-top: auto; font-size: 13px; font-weight: 600; color: #3A2A00; padding: 8px 12px; background: #FAEEDA; border-radius: 6px">Machine is in Service mode. Exit service mode to start a batch.</span><button type="button" disabled="" style="height: 64px; border: 0; border-radius: 6px; background: #C5CACF; color: #3A4148; font-family: inherit; font-size: 16px; font-weight: 600">Start batch</button></sc-if>
+</sc-if>
+</section>
+</div>
+
+<section aria-label="Rejects by station" style="flex-shrink: 0; box-sizing: border-box; padding: 10px 12px; background: #F4F5F6; border: 1px solid #C5CACF; border-radius: 6px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; font-weight: 600; color: #3A4148">Rejects by station · this batch</span>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px">
+<sc-for list="{{rejList}}" as="x" hint-placeholder-count="7">
+<div style="box-sizing: border-box; padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 12px; color: #4A525A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{x.name}}</span>
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600; color: {{x.fg}}">{{x.n}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<sc-if value="{{msgHome}}" hint-placeholder-val="{{ false }}">
+<a href="AlarmsActive.dc.html" style="height: 52px; flex-shrink: 0; box-sizing: border-box; padding: 0 14px; display: flex; align-items: center; gap: 12px; border: 1px solid #B07A00; border-radius: 6px; background: #F2B33D; color: #3A2A00; font-size: 14px; text-decoration: none">
+<span style="font-weight: 600; font-family: 'IBM Plex Mono', monospace">W-001</span>
+<span style="flex: 1">Machine not homed. Press Reset – the machine homes and moves to Ready.</span>
+<span style="font-weight: 600">View alarms</span>
+</a>
+</sc-if>
+<sc-if value="{{msgFault}}" hint-placeholder-val="{{ false }}">
+<a href="AlarmsActive.dc.html" style="height: 52px; flex-shrink: 0; box-sizing: border-box; padding: 0 14px; display: flex; align-items: center; gap: 12px; border-radius: 6px; background: #B3261E; color: #FFFFFF; font-size: 14px; text-decoration: none"><span style="font-weight: 600; font-family: 'IBM Plex Mono', monospace">F-101</span><span style="flex: 1">Emergency stop pressed. Release it, then press Reset.</span><span style="font-weight: 600">2 alarms</span></a>
+</sc-if>
+<sc-if value="{{msgNone}}" hint-placeholder-val="{{ true }}">
+<a href="Alarms.dc.html" style="height: 52px; flex-shrink: 0; box-sizing: border-box; padding: 0 14px; display: flex; align-items: center; gap: 10px; border-radius: 6px; background: #D3D7DB; color: #3A4148; font-size: 14px; text-decoration: none"><span style="flex: 1">No active alarms</span><span style="font-size: 12px; color: #4A525A">Last alarm cleared 11:52</span></a>
+</sc-if>
+
+</main>
+
+<nav aria-label="Main navigation" style="width: 96px; box-sizing: border-box; padding: 8px; display: flex; flex-direction: column; gap: 4px; background: #2B3138">
+<a href="HomeClean.dc.html" aria-current="page" style="flex: 1; position: relative; border-radius: 6px; background: {{accent}}; color: #FFFFFF; font-size: 12px; font-weight: 600; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg><span>Home</span></a>
+<a href="Statistics.dc.html" style="flex: 1; border-radius: 6px; background: transparent; color: #E4E6E8; font-size: 12px; font-weight: 500; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"></path><path d="M7 15l4-4 3 3 5-6"></path></svg><span>Statistics</span></a>
+<a href="Functions.dc.html" style="flex: 1; border-radius: 6px; background: transparent; color: #E4E6E8; font-size: 12px; font-weight: 500; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 4h-2a3 3 0 0 0-3 3v13a2 2 0 0 1-2 2H7"></path><path d="M6 11h9"></path></svg><span>Functions</span></a>
+<a href="Recipe.dc.html" style="flex: 1; border-radius: 6px; background: transparent; color: #E4E6E8; font-size: 12px; font-weight: 500; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"></path><path d="M9 9h6M9 13h6"></path></svg><span>Recipe</span></a>
+<a href="Service.dc.html" style="flex: 1; border-radius: 6px; background: transparent; color: #E4E6E8; font-size: 12px; font-weight: 500; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"></path></svg><span style="text-align: center; line-height: 1.2">Service &amp;<br>diagnostics</span></a>
+<a href="Settings.dc.html" style="flex: 1; border-radius: 6px; background: transparent; color: #E4E6E8; font-size: 12px; font-weight: 500; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"></path></svg><span>Settings</span></a>
+<a href="Language.dc.html" style="flex: 1; border-radius: 6px; background: transparent; color: #E4E6E8; font-size: 12px; font-weight: 500; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<svg style="pointer-events: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg><span>Language</span></a>
+</nav>
+
+</div>
+<sc-if value="{{showStart}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(30, 35, 40, 0.55); display: flex; align-items: center; justify-content: center">
+<section role="dialog" aria-label="Start batch" style="width: 600px; box-sizing: border-box; padding: 20px; background: #F4F5F6; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35)">
+<span style="font-size: 20px; font-weight: 600">Start batch</span>
+<div style="height: 48px; padding: 0 14px; box-sizing: border-box; background: #E4E6E8; border-radius: 6px; display: flex; align-items: center; justify-content: space-between"><span style="font-size: 14px; color: #3A4148">Loaded recipe</span><span style="font-size: 15px; font-weight: 600">[RECIPE NAME] · checked 08:05</span></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 13px; color: #3A4148">Batch number</span><button type="button" style="height: 56px; box-sizing: border-box; padding: 0 14px; border: 1px solid #A7AEB5; border-radius: 6px; background: #FFFFFF; color: #1E2328; font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600; text-align: left; cursor: text">[BATCH NO.]</button></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 13px; color: #3A4148">Target quantity</span><button type="button" style="height: 56px; box-sizing: border-box; padding: 0 14px; border: 1px solid #A7AEB5; border-radius: 6px; background: #FFFFFF; color: #1E2328; font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600; text-align: left; cursor: text">{{targetText}}</button></div>
+</div>
+<div style="display: flex; align-items: center; gap: 12px"><span style="flex: 1; font-size: 15px">Line clearance done</span><div style="width: 240px; display: flex; padding: 3px; gap: 3px; background: #D3D7DB; border-radius: 8px"><button type="button" onClick="{{clearNo}}" aria-pressed="{{cNo.on}}" style="flex: 1; height: 50px; border: 0; border-radius: 6px; background: {{cNo.bg}}; color: {{cNo.fg}}; font-family: inherit; font-size: 14px; font-weight: {{cNo.fw}}; cursor: pointer">No</button><button type="button" onClick="{{clearYes}}" aria-pressed="{{cYes.on}}" style="flex: 1; height: 50px; border: 0; border-radius: 6px; background: {{cYes.bg}}; color: {{cYes.fg}}; font-family: inherit; font-size: 14px; font-weight: {{cYes.fw}}; cursor: pointer">Yes</button></div></div>
+<span style="font-size: 12px; color: #4A525A">Starting resets the batch and per-station reject counters and records the recipe, station checks and your signature in the batch record.</span>
+<div style="display: flex; gap: 10px">
+<button type="button" onClick="{{closeStart}}" style="flex: 1; height: 64px; border: 1px solid #A7AEB5; border-radius: 6px; background: #FFFFFF; color: #1E2328; font-family: inherit; font-size: 15px; font-weight: 500; cursor: pointer">Cancel</button>
+<sc-if value="{{canStart}}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{startBatch}}" style="flex: 2; height: 64px; border: 0; border-radius: 6px; background: #1F5FA8; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>Start batch</span></button></sc-if>
+<sc-if value="{{cannotStart}}" hint-placeholder-val="{{ true }}"><button type="button" disabled="" style="flex: 2; height: 64px; border: 0; border-radius: 6px; background: #C5CACF; color: #3A4148; font-family: inherit; font-size: 16px; font-weight: 600">Start batch</button></sc-if>
+</div>
+</section>
+</div>
+</sc-if>
+<sc-if value="{{showEnd}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(30, 35, 40, 0.55); display: flex; align-items: center; justify-content: center">
+<section role="dialog" aria-label="End batch" style="width: 560px; box-sizing: border-box; padding: 20px; background: #F4F5F6; border-radius: 8px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35)">
+<span style="font-size: 20px; font-weight: 600">End batch [BATCH NO.]?</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px"><div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A525A">Good</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600">{{goodText}}</span></div><div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A525A">Rejected</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600">{{rejTotalText}}</span></div><div style="padding: 6px 10px; background: #FFFFFF; border: 1px solid #D3D7DB; border-radius: 6px; display: flex; flex-direction: column"><span style="font-size: 12px; color: #4A525A">Target</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600">{{targetText}}</span></div></div>
+<span style="font-size: 14px; color: #3A4148; line-height: 1.5">Final counts and rejects per station are saved to the batch record and signed with your user name.</span>
+<div style="display: flex; gap: 10px">
+<button type="button" onClick="{{closeEnd}}" style="flex: 1; height: 64px; border: 1px solid #A7AEB5; border-radius: 6px; background: #FFFFFF; color: #1E2328; font-family: inherit; font-size: 15px; font-weight: 500; cursor: pointer">Keep running</button>
+<button type="button" onClick="{{endBatch}}" style="flex: 1; height: 64px; border: 0; border-radius: 6px; background: #B3261E; color: #FFFFFF; font-family: inherit; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>End batch</span></button>
+</div>
+</section>
+</div>
+</sc-if>
+<sc-if value="{{showTarget}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(30, 35, 40, 0.55); display: flex; flex-direction: column; align-items: center; padding-top: 16px">
+<section role="dialog" aria-label="Edit target quantity" style="width: 520px; box-sizing: border-box; padding: 16px 20px; background: #F4F5F6; border-radius: 8px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35)">
+<span style="font-size: 20px; font-weight: 600">Target quantity · [BATCH NO.]</span>
+<div style="height: 64px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; gap: 4px; background: #FFFFFF; border: 2px solid #1F5FA8; border-radius: 6px"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 30px; font-weight: 600">{{tEntryText}}</span><span style="width: 2px; height: 28px; background: #1F5FA8"></span><span style="margin-left: 8px; font-size: 14px; color: #4A525A">cartons</span></div>
+<span style="font-size: 12px; color: #4A525A">Already produced: {{countText}}. The new target must be higher. Logged with your signature.</span>
+<div style="display: flex; gap: 10px">
+<button type="button" onClick="{{closeTarget}}" style="flex: 1; height: 56px; border: 1px solid #A7AEB5; border-radius: 6px; background: #FFFFFF; color: #1E2328; font-family: inherit; font-size: 15px; font-weight: 500; cursor: pointer">Cancel</button>
+<button type="button" onClick="{{applyTarget}}" style="flex: 1; height: 56px; border: 0; border-radius: 6px; background: {{tApplyBg}}; color: {{tApplyFg}}; font-family: inherit; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer"><svg style="pointer-events: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>Apply</span></button>
+</div>
+</section>
+<div role="group" aria-label="Number keypad" style="position: absolute; left: 0; right: 0; bottom: 0; box-sizing: border-box; padding: 8px 160px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; background: #C5CACF">
+<sc-for list="{{tKeys}}" as="k" hint-placeholder-count="12">
+<button type="button" onClick="{{k.press}}" aria-label="{{k.aria}}" style="height: 48px; border: 0; border-radius: 6px; background: {{k.bg}}; color: #1E2328; font-family: 'IBM Plex Mono', monospace; font-size: {{k.size}}; font-weight: 600; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25); cursor: pointer">{{k.label}}</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{showSpeed}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex">
+<dc-import name="SpeedAdjust" on-close="{{closeSpeed}}" on-confirm="{{applySpeed}}" current="{{speed}}" recipe="{{recipeSpeedNum}}" jog="{{jogSpeed}}" hint-size="1024px,600px"></dc-import>
+</div>
+</sc-if>
+<sc-if value="{{showLogin}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex">
+<dc-import name="Login" on-close="{{closeLogin}}" on-confirm="{{doLogin}}" hint-size="1024px,600px"></dc-import>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startRunning":{"editor":"boolean","default":true},"accent":{"editor":"color","default":"#1F5FA8","options":["#1F5FA8","#00695C","#3A424B"]},"$preview":{"width":1024,"height":600}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this._onMode = (e) => { if (!e || e.key === 'pacmac.cartonator.mode') this.forceUpdate(); };
+    try { window.addEventListener('storage', this._onMode); } catch (err) {}
+  }
+  componentWillUnmount() {
+    try { window.removeEventListener('storage', this._onMode); } catch (err) {}
+  }
+  renderVals() {
+    const getMode = () => { try { return window.localStorage.getItem('pacmac.cartonator.mode') || 'Production'; } catch (err) { return (this.state && this.state._mode) || 'Production'; } };
+    const setMode = (m) => { try { window.localStorage.setItem('pacmac.cartonator.mode', m); } catch (err) {} this.setState({ _mode: m }); };
+    const mMode = getMode();
+    const states = [
+      { label: 'Not homed', bg: '#F2B33D', fg: '#3A2A00', dot: 'transparent', ring: '#3A2A00' },
+      { label: 'Homing…', bg: '#3A424B', fg: '#F4F5F6', dot: 'transparent', ring: '#F2B33D' },
+      { label: 'Ready', bg: '#3A424B', fg: '#F4F5F6', dot: 'transparent', ring: '#F4F5F6' },
+      { label: 'Running', bg: '#3A424B', fg: '#F4F5F6', dot: '#4CAF50', ring: '#4CAF50' },
+      { label: 'Stopped', bg: '#3A424B', fg: '#F4F5F6', dot: '#A7AEB5', ring: '#A7AEB5' },
+      { label: 'Fault', bg: '#B3261E', fg: '#FFFFFF', dot: '#FFFFFF', ring: '#FFFFFF' }
+    ];
+    const s2 = this.state || {};
+    const start = (this.props.startRunning ?? true) ? 3 : 0;
+    const i = typeof s2.s === 'number' ? s2.s : start;
+    const relOk = i === 4 || i === 5;
+    const rel = relOk ? (s2.rel || {}) : {};
+    const rej = [3, 6, 14, 2, 5, 4, 3];
+    const good = 12480;
+    const rejTotal = rej.reduce((a, b) => a + b, 0);
+    const count = good + rejTotal;
+    const fmt = (x) => x.toLocaleString('en-US');
+    const rejMax = Math.max.apply(null, rej);
+    const rejList = ['Carton pick', 'Product', 'Leaflet', 'Push-in', 'Flap close', 'Coding', 'Code check'].map((name, k) => ({ name: name, n: String(rej[k]), fg: rej[k] === rejMax ? '#B3261E' : '#1E2328' }));
+
+    const target = typeof s2.target === 'number' ? s2.target : 20000;
+    const tEntry = typeof s2.tEntry === 'string' ? s2.tEntry : '';
+    const tEntryOk = tEntry !== '' && Number(tEntry) > count && Number(tEntry) <= 999999;
+    const tType = (d) => { if (tEntry.length < 6 && !(tEntry === '' && d === '0')) this.setState({ tEntry: tEntry + d }); };
+    const tKeys = ['7', '8', '9', '⌫', '4', '5', '6', 'Clear', '1', '2', '3', '0'].map((l) => ({
+      label: l, aria: l === '⌫' ? 'Delete last digit' : l, size: l === 'Clear' ? '15px' : '20px', bg: (l === '⌫' || l === 'Clear') ? '#A7AEB5' : '#FFFFFF',
+      press: l === '⌫' ? () => this.setState({ tEntry: tEntry.slice(0, -1) }) : (l === 'Clear' ? () => this.setState({ tEntry: '' }) : () => tType(l))
+    }));
+    const speed = typeof s2.speed === 'number' ? s2.speed : 43;
+    const jogSpeed = typeof s2.jog === 'number' ? s2.jog : 6;
+    const RECIPE_SPEED = 45;
+    const MAX_SPEED = 60;
+    const pct = Math.min(100, Math.round(count / target * 100));
+    return {
+      st: states[i],
+      cycleState: () => { const ns = (i + 1) % states.length; this.setState(ns === 4 || ns === 5 ? { s: ns } : { s: ns, rel: {} }); },
+      relBtns: [['push', 'Release pushers'], ['guide', 'Release carton top guide']].map((d) => {
+        const on = !!rel[d[0]];
+        return { label: d[1], sub: on ? 'Released · Reset to restore' : (relOk ? 'Tap to release' : 'Stop or fault only'), pressed: on ? 'true' : 'false', disabled: !relOk,
+          bg: on ? '#F2B33D' : (relOk ? '#FFFFFF' : '#E4E6E8'), fg: on ? '#3A2A00' : (relOk ? '#1E2328' : '#5F6872'), bd: on ? '1px solid #B07A00' : (relOk ? '1px solid #A7AEB5' : '1px dashed #A7AEB5'), cur: relOk ? 'pointer' : 'not-allowed',
+          press: () => { if (!relOk) return; if (s2.out) { this.setState({ login: true }); return; } this.setState({ rel: Object.assign({}, rel, { [d[0]]: !on }) }); } };
+      }),
+      relNote: relOk ? (rel.push || rel.guide ? 'Next Reset restores all' : 'Machine stopped') : 'Available when stopped or in fault',
+      relNoteFg: rel.push || rel.guide ? '#8A5A00' : '#4A525A',
+      loggedIn: !s2.out,
+      loggedOut: !!s2.out,
+      logout: () => this.setState({ out: true }),
+      showLogin: !!s2.login,
+      openLogin: () => this.setState({ login: true }),
+      closeLogin: () => this.setState({ login: false }),
+      doLogin: () => this.setState({ login: false, out: false }),
+      rejList: rejList,
+      countText: fmt(count),
+      goodText: fmt(good),
+      rejTotalText: fmt(rejTotal),
+      rejPct: (rejTotal / count * 100).toFixed(1) + ' %',
+      batchOn: mMode === 'Production',
+      noBatch: mMode !== 'Production',
+      canStartMode: mMode === 'Setup',
+      inServiceMode: mMode === 'Service',
+      modeLine: mMode + ' mode · Line mode off',
+      noBatchText: mMode === 'Service' ? 'Service mode: maintenance only, no product runs.' : 'Setup mode: the machine can run to test the format; counts are not recorded to a batch.',
+      targetText: fmt(target),
+      batchPct: pct + '%',
+      batchPctText: pct + ' % of target',
+      showStart: !!s2.startDlg,
+      openStart: () => this.setState(s2.out ? { login: true } : { startDlg: true, clr: false }),
+      closeStart: () => this.setState({ startDlg: false }),
+      startBatch: () => { this.setState({ startDlg: false }); setMode('Production'); },
+      clearYes: () => this.setState({ clr: true }),
+      clearNo: () => this.setState({ clr: false }),
+      cYes: { on: s2.clr ? 'true' : 'false', bg: s2.clr ? '#FFFFFF' : 'transparent', fg: s2.clr ? '#1E2328' : '#3A4148', fw: s2.clr ? '600' : '400' },
+      cNo: { on: s2.clr ? 'false' : 'true', bg: s2.clr ? 'transparent' : '#FFFFFF', fg: s2.clr ? '#3A4148' : '#1E2328', fw: s2.clr ? '400' : '600' },
+      canStart: !!s2.clr,
+      cannotStart: !s2.clr,
+      showEnd: !!s2.endDlg,
+      openEnd: () => this.setState(s2.out ? { login: true } : { endDlg: true }),
+      closeEnd: () => this.setState({ endDlg: false }),
+      endBatch: () => { this.setState({ endDlg: false }); setMode('Setup'); },
+      showTarget: typeof s2.tEntry === 'string',
+      openTarget: () => this.setState(s2.out ? { login: true } : { tEntry: '' }),
+      closeTarget: () => this.setState({ tEntry: undefined }),
+      tEntryText: tEntry ? Number(tEntry).toLocaleString('en-US') : fmt(target),
+      tApplyBg: tEntryOk ? '#1F5FA8' : '#C5CACF',
+      tApplyFg: tEntryOk ? '#FFFFFF' : '#3A4148',
+      applyTarget: () => { if (tEntryOk) this.setState({ target: Number(tEntry), tEntry: undefined }); },
+      tKeys: tKeys,
+      showSpeed: !!s2.spd,
+      openSpeed: () => this.setState(s2.out ? { login: true } : { spd: true }),
+      closeSpeed: () => this.setState({ spd: false }),
+      applySpeed: (val, jg) => this.setState({ spd: false, speed: typeof val === 'number' ? val : speed, jog: typeof jg === 'number' ? jg : jogSpeed }),
+      jogSpeed: jogSpeed,
+      speed: speed,
+      speedText: String(speed),
+      speedW: Math.round(speed / MAX_SPEED * 100) + '%',
+      recipeSpeed: String(RECIPE_SPEED),
+      recipeSpeedNum: RECIPE_SPEED,
+      speedDiff: speed === RECIPE_SPEED ? '' : ' · ' + (speed > RECIPE_SPEED ? '+' : '−') + Math.abs(speed - RECIPE_SPEED),
+      msgHome: i === 0,
+      msgFault: i === 5,
+      msgNone: i !== 0 && i !== 5,
+      accent: this.props.accent ?? '#1F5FA8'
+    };
+  }
+}
+</script>
+</body>
+</html>
